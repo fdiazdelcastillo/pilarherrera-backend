@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pilar Herrera Pastelería - Contáctame</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/navbar.css"/>
+    <link rel="stylesheet" href="/css/footer.css"/>
+    <link rel="stylesheet" href="../css/form.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <!-- esto es el navbar -->
+<section id="navbar-container">
+    <script src="../js/navbar.js"></script>
+    <script>
+        renderNavBar();
+    </script>
+</section>
+<!-- este es el final del navbar -->
+
+<section class="formulario">
+    <!-- templates/form.html -->
+<h2>Contáctame o haz tu pedido</h2>
+<form id="pedidoForm" class="form">
+    <label>Nombre Completo:<br><input type="text" name="nombre" required></label><br><br>
+
+    <label>Correo electrónico:<br><input type="email" name="email" required></label><br><br>
+
+    <label>Teléfono:<br><input type="tel" name="telefono" required></label><br><br>
+
+    <label>Tipo de pedido:<br>
+        <select name="tipo">
+            <option value="Torta">Pan</option>
+            <option value="Cupcakes">Tortas</option>
+            <option value="Galletas">Galletas</option>
+            <option value="Postres">Postres</option>
+        </select>
+    </label><br><br>
+
+    <label>Mensaje o detalles del pedido:<br>
+        <textarea name="mensaje" rows="5" required></textarea>
+    </label><br><br>
+
+    <button class="boton-formulario" type="submit">Enviar</button>
+    <a href="/grafica-pedidos" class="grafica-pedidos" target="_blank">
+        <button type="button">Ver gráfica de pedidos</button>
+    </a>
+</form>
+</section>
+
+<script>
+    document.getElementById('pedidoForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        const res = await fetch('/guardar_pedido', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data),
+        });
+
+        if (res.ok) alert("¡Gracias por tu mensaje! Te contactaremos pronto.");
+        else alert("Hubo un error al enviar el formulario.");
+    });
+</script>
+
+<!-- Inicio footer -->
+<footer id="footer">
+    <div class="footer-contacto">
+        <h1>Contáctame</h1>
+        <a
+                href="https://www.instagram.com/pilarherrerapasteleriagourmet/"
+                target="_blank"
+        >@pilarherrerapasteleriagourmet</a
+        ><br/>
+        <a href="tel: +573225923973">+57 322 592 3973</a>
+        <div class="footer-iconos">
+            <a href="https://wa.me/57322592397" target="_blank"
+            ><img
+                    src="/assets/imagenes/whatsapp-svgrepo-com 1.png"
+                    alt="Logo whatsapp"
+            /></a>
+            <a
+                    href="https://www.instagram.com/pilarherrerapasteleriagourmet/"
+                    target="_blank"
+            ><img
+                    src="/assets/imagenes/instagram-167-svgrepo-com 1.png"
+                    alt="Logo instagram"
+            /></a>
+            <a href="mailto:pily126@gmail.com" target="_blank"
+            ><img
+                    src="/assets/imagenes/mail-alt-3-svgrepo-com 1.png"
+                    alt="Logo email"
+            /></a>
+        </div>
+    </div>
+    <div class="footer-newsletter">
+        <h2>Newsletter</h2>
+        <p>
+            Suscribete y enterate primero de nuestros<br/>sabores de temporada.
+        </p>
+        <form name="newsletter" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="newsletter"/>
+            <input
+                    type="email"
+                    class="input-personalizado"
+                    placeholder="tuemail@email.com"
+                    required
+            />
+            <button type="submit">Envia</button>
+        </form>
+    </div>
+</footer>
+<!-- Fin footer -->
+
+</body>
+</html>
